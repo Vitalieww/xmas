@@ -1,8 +1,8 @@
 from typing import Final
 from telegram import Update 
 from telegram.ext import Application, CommandHandler, MessageHandler, Filters, ContextTypes
-TOKEN: Final = "8113622873:AAGj-tYISqoP-RBe_ZJQcWD2BG10g2FC_2gY"
-BOT_USRENAME: Final = "@Reality_checker_bot"
+TOKEN: Final = "8072728393:AAEv6-XZ7e2JRIa0Pt9hTyur6Z3OIef_7uI"
+BOT_USRENAME: Final = "@reality_checkerbot"
 
 
 #Commands
@@ -22,8 +22,11 @@ def handle_response(text: str) -> str:
     return "This is a response to the user's input."
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # message_type 
-    pass
+    message_type: str = update.message.chat.type
+    text: str = update.message.text
+    
+    print(f"User ({update.message.chat.id}) in {message_type}: {text}")
+    
     
 
 
