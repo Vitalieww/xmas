@@ -26,7 +26,8 @@ def analyze_article_credibility(article_content):
     try:
         prompt = (
             "Analyze the following article for credibility. Assess the tone, use of sources, potential bias, and fact-based claims. "
-            "Provide a brief assessment of its reliability and include a credibility score between 1 and 10 based on your evaluation:\n\n"
+            "Group your analysis into categories: 'Tone', 'Sources', 'Bias', 'Fact-Based Claims', and 'Overall Assessment'. "
+            "Provide an average credibility score between 1 and 10 based on your evaluation:\n\n"
             f"Article Content:\n{article_content}"
         )
 
