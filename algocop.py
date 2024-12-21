@@ -4,7 +4,7 @@ import openai
 import re
 
 # Initialize the OpenAI API key
-openai.api_key = "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"
+openai.api_key = ""
 
 def fetch_article_content(url):
     """Fetches the content of an article from a given URL."""
