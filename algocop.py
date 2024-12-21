@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import openai
 import re
 
-api_key = "your_openai_api_key_here"
+
 
 def validate_openai_api_key(api_key):
     """Validates the OpenAI API key by making a test request."""
@@ -85,8 +85,8 @@ def text_analysis(user_input, api_key):
     print("Welcome to the Article Credibility Verifier")
 
     if not validate_openai_api_key(api_key):
-        print("Error: Invalid OpenAI API key.")
-        return
+        analysis="Error: Invalid OpenAI API key."
+        return analysis
 
     if is_link(user_input):
         print("Fetching article content...")
@@ -99,8 +99,8 @@ def text_analysis(user_input, api_key):
         article_content = user_input
 
     if not is_text_an_article(article_content):
-        print("Error: The provided text does not resemble an article.")
-        return
+        analysis="Error: The provided text does not resemble an article."
+        return analysis
 
     print("Analyzing the article's credibility...")
     analysis = analyze_article_credibility(article_content)
@@ -109,3 +109,4 @@ def text_analysis(user_input, api_key):
     print(analysis)
     return analysis
 
+api_key = "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"
