@@ -27,7 +27,8 @@ def analyze_article_credibility(article_content):
         prompt = (
             "Analyze the following article for credibility. Assess the tone, use of sources, potential bias, and fact-based claims. "
             "Group your analysis into categories: 'Tone', 'Sources', 'Bias', 'Fact-Based Claims', and 'Overall Assessment'. "
-            "Provide an average credibility score between 1 and 10 based on your evaluation:\n\n"
+            "Provide an average credibility score between 1 and 10 based on your evaluation:
+\n\n"
             f"Article Content:\n{article_content}"
         )
 
@@ -40,7 +41,16 @@ def analyze_article_credibility(article_content):
         )
 
         # Extract and return the analysis and credibility score from the API's response
-        analysis = response['choices'][0]['message']['content']
+        analysis_text = response['choices'][0]['message']['content']
+        
+        # Convert the analysis into a structured Python list format
+        analysis = []
+        categories = ["Tone", "Sources", "Bias", "Fact-Based Claims", "Overall Assessment"]
+        for category in categories:
+            match = re.search(f"{category}:.*?(?=(?:\n\n|\Z))", analysis_text, re.DOTALL)
+            if match:
+                analysis.append({"category": category, "details": match.group(0).strip()})
+
         return analysis
     except Exception as e:
         return f"Error analyzing article: {e}"
@@ -78,5 +88,8 @@ def text_analysis(user_input):
     analysis = analyze_article_credibility(article_content)
 
     print("\n--- Analysis ---\n")
-    print(analysis)
+    for item in analysis:
+        print(f"Category: {item['category']}")
+        print(f"Details: {item['details']}")
+        print("\n")
     return analysis
