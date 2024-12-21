@@ -2,7 +2,12 @@ import requests
 from bs4 import BeautifulSoup 
 import openai 
 import re 
- 
+from dotenv import load_dotenv
+import os
+
+load_dotenv("./variables.env")  # Load variables from .env file
+api_key = os.getenv("OPENAI_API_KEY")
+
  
  
 def validate_openai_api_key(api_key): 
@@ -108,5 +113,3 @@ def text_analysis(user_input, api_key):
     print("\n--- Analysis ---\n") 
     print(analysis) 
     return analysis 
- 
-api_key = "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"
