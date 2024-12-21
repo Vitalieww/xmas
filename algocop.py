@@ -3,8 +3,19 @@ from bs4 import BeautifulSoup
 import openai
 import re
 
-# Initialize the OpenAI API key
-openai.api_key = ""
+api_key = "your_openai_api_key_here"
+
+def validate_openai_api_key(api_key):
+    """Validates the OpenAI API key by making a test request."""
+    try:
+        openai.api_key = api_key
+        openai.Engine.list()  # Test request to validate the API key
+        return True
+    except openai.error.AuthenticationError:
+        return False
+    except Exception as e:
+        print(f"Unexpected error during API key validation: {e}")
+        return False
 
 def fetch_article_content(url):
     """Fetches the content of an article from a given URL."""
@@ -17,9 +28,16 @@ def fetch_article_content(url):
         paragraphs = soup.find_all('p')
         article_content = ' '.join([para.get_text() for para in paragraphs])
 
-        return article_content
+        return article_content if article_content.strip() else "Error: No article content found."
     except Exception as e:
         return f"Error fetching article content: {e}"
+
+def is_text_an_article(text):
+    """Checks if the provided text resembles an article."""
+    word_count = len(text.split())
+    if word_count < 50:
+        return False
+    return True
 
 def analyze_article_credibility(article_content):
     """Analyzes the credibility of an article using OpenAI API."""
@@ -42,6 +60,8 @@ def analyze_article_credibility(article_content):
         # Extract and return the analysis and credibility score from the API's response
         analysis = response['choices'][0]['message']['content']
         return analysis
+    except openai.error.AuthenticationError:
+        return "Error: Invalid OpenAI API key."
     except Exception as e:
         return f"Error analyzing article: {e}"
 
@@ -61,8 +81,12 @@ def is_link(string):
     return re.match(url_pattern, string) is not None
 
 # Main Program
-def text_analysis(user_input):
+def text_analysis(user_input, api_key):
     print("Welcome to the Article Credibility Verifier")
+
+    if not validate_openai_api_key(api_key):
+        print("Error: Invalid OpenAI API key.")
+        return
 
     if is_link(user_input):
         print("Fetching article content...")
@@ -74,9 +98,14 @@ def text_analysis(user_input):
     else:
         article_content = user_input
 
+    if not is_text_an_article(article_content):
+        print("Error: The provided text does not resemble an article.")
+        return
+
     print("Analyzing the article's credibility...")
     analysis = analyze_article_credibility(article_content)
 
     print("\n--- Analysis ---\n")
     print(analysis)
     return analysis
+
