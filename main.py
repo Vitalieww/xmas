@@ -1,8 +1,7 @@
 from typing import Final
 from telegram import Update 
 from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
-
-from algocop import text_analysis ,api_key
+from algocop import text_analysis, api_key
 
 
 TOKEN: Final = "8072728393:AAEv6-XZ7e2JRIa0Pt9hTyur6Z3OIef_7uI"
