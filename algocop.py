@@ -4,7 +4,7 @@ import openai
 import re
 
 # Initialize the OpenAI API key
-openai.api_key = "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"
+openai.api_key = "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"
 
 def fetch_article_content(url):
     """Fetches the content of an article from a given URL."""
@@ -60,9 +60,8 @@ def is_link(string):
     return re.match(url_pattern, string) is not None
 
 # Main Program
-def main():
+def text_analysis(user_input):
     print("Welcome to the Article Credibility Verifier")
-    user_input = input("Enter the URL or text of the article to analyze: ").strip()
 
     if is_link(user_input):
         print("Fetching article content...")
@@ -79,6 +78,4 @@ def main():
 
     print("\n--- Analysis ---\n")
     print(analysis)
-
-if __name__ == "__main__":
-    main()
+    return analysis
