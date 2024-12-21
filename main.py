@@ -22,7 +22,8 @@ def handle_response(text: str) -> str:
     return "This is a response to the user's input."
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    message_type 
+    # message_type 
+    pass
     
 
 
