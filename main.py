@@ -1,24 +1,35 @@
 from typing import Final
 from telegram import Update 
-from telegram.ext import Application, CommandHandler, MessageHandler, Filters, ContextTypes
+from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
+
 TOKEN: Final = "8072728393:AAEv6-XZ7e2JRIa0Pt9hTyur6Z3OIef_7uI"
 BOT_USRENAME: Final = "@reality_checkerbot"
 
+user_input_variable: str = ""  # Declare a variable to store the user's input
 
-#Commands
+# Commands
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Hello! I am a bot that can check the reality of the news you send me. Just send me the news and I will tell you if it is real or fake.")
-    
+    start_message = (
+        "Hello! I am a bot that can check the reality of the news you send me.\n"
+        "Just send me the news and I will tell you if it is real or fake.\n\n"
+        "Here are some commands you can use:\n"
+        "/start - Start the bot and see this message\n"
+        "/help - Get help on how to use the bot\n"
+        "You can also just send me any news article or text, and I will analyze it for you."
+    )
+    await update.message.reply_text(start_message)
 
-async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("If you have any questions, feel free to ask me. I am here to help you.")
-    
-async def custom_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("This is a custom command.")
-    
-#Responses
+async def save_user_input(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    global user_input_variable  # Declare the variable as global to modify it
+    user_input_variable = update.message.text  # Save the user's text to the variable
+    print(f"Saved user input: {user_input_variable}")  # Print the saved input for confirmation
+    await update.message.reply_text(f"Your input has been saved")  # Await the reply_text coroutine
+    await update.message.reply_text(f"Searching for the reality of the news...")  # Await the reply_text coroutine
 
+# Responses
 def handle_response(text: str) -> str:
+    if "news" in text:
+        return "This is a response to the user's news."
     return "This is a response to the user's input."
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -42,22 +53,13 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def error(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print(f"Update {update} caused error {context.error}")
     
-if __name__ == '__main__':
+if __name__ == "__main__":
     print("Starting bot...")
     app = Application.builder().token(TOKEN).build()
     
-    #Commands
+    # Commands
     app.add_handler(CommandHandler("start", start_command))
-    app.add_handler(CommandHandler("help", help_command))
-    app.add_handler(CommandHandler("custom", custom_command))
-
-    #Messages
-    app.add_handler(MessageHandler(filters.TEXT, handle_message))
+    app.add_handler(MessageHandler(filters.TEXT, save_user_input))
     
-    #Error
-    app.add_error_handler(error)
-    
-    #Polling
     print("Polling...")
-    app.run_polling(poll_interval=3)
-
+    app.run_polling()
