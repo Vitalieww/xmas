@@ -1,7 +1,5 @@
-<!-- Updated result.html -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,107 +7,74 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            font-family: sans-serif;
-            background-color: #f8f8f8;
-            color: #333;
-            margin: 0;
-        }
-        
-        main {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 2rem;
-            box-sizing: border-box;
-        }
-        
-        .container {
-            max-width: 800px;
-            text-align: center;
-        }
-        
-        .card {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border: none;
-            margin-bottom: 1rem;
+        .analysis-item {
+            background: #f8f9fa;
+            height: 100%;
             padding: 1.5rem;
-            background-color: #fff;
             border-radius: 8px;
+            border-left: 4px solid #007bff;
+            margin-bottom: 1rem;
         }
-        
-        h1.display-4 {
-            font-size: 2rem;
+
+        .analysis-item h5 {
+            color: #007bff;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .analysis-item p {
+            margin-bottom: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .item-pair {
+            margin-bottom: 1.5rem;
+        }
+
+        .credibility-score {
+            font-size: 1.5rem;
             font-weight: bold;
-        }
-        
-        header h1 {
-            text-align: center;
-        }
-        
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-        
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
-        
-        .alert-warning {
-            font-size: 1.1rem;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 8px;
-        }
-        
-        footer {
-            text-align: center;
-            background-color: #f8f9fa;
-            padding: 1rem 0;
-            width: 100%;
-        }
-        
-        .details-card {
-            margin-top: 1rem;
+            color: #28a745;
         }
     </style>
 </head>
-
 <body>
     <main>
-        <header class="mb-4">
-            <h1>Reality Checker</h1>
-            <p>Look for biases and truthfulness in your articles.</p>
-        </header>
+<!--        <header class="mb-4">-->
+<!--            <h1>Reality Checker</h1>-->
+<!--            <p>Look for biases and truthfulness in your articles.</p>-->
+<!--        </header>-->
+
 
         <div class="container">
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-body">
-                    <h1 class="display-4">Evaluation Score: <span class="text-success">{{ score }}&#47;10</span></h1>
-                    <!-- <button class="btn btn-primary mt-4 toggle-details-button">Show Details</button> -->
+                    <h1 class="display-4">Analysis Results</h1>
                 </div>
             </div>
-
-            <h1 class="my-4">Search Results</h1>
 
             {% if result %}
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Analysis Result:</h5>
-                    <pre>{{ result }}</pre>
+            <!-- Display Credibility Score separately -->
+            <div class="card mt-4">
+                <div class="card-body text-center">
+                    <h5>Credibility Score</h5>
+                    <p class="credibility-score">{{ result['Credibility Score'] }}</p>
                 </div>
             </div>
 
-            <!-- <div class="card details-card d-none">
-                <div class="card-body">
-                    <h5 class="card-title">Detailed Analysis:</h5>
-                    <pre>{{ result }}</pre>
-                </div>
-            </div> -->
+            <div class="row">
+                {% for key, value in result.items() %}
+                    {% if key != 'Credibility Score' %}
+                        <div class="col-md-6 mb-4">
+                            <div class="analysis-item">
+                                <h5>{{ key }}</h5>
+                                <p>{{ value }}</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
             {% else %}
             <div class="alert alert-warning">
                 <i class="fas fa-exclamation-triangle"></i> No results found for your search.
@@ -122,18 +87,10 @@
         </div>
     </main>
 
-    <footer>
+    <footer class="mt-5">
         &copy; 2024 Reality Checker. Team 06. All rights reserved
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.querySelector('.toggle-details-button').addEventListener('click', function() {
-            const detailsCard = document.querySelector('.details-card');
-            detailsCard.classList.toggle('d-none');
-            this.textContent = detailsCard.classList.contains('d-none') ? 'Show Details' : 'Hide Details';
-        });
-    </script>
 </body>
-
 </html>
