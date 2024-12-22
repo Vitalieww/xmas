@@ -27,7 +27,7 @@ async def save_user_input(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     await update.message.reply_text(f"Your input has been saved")  # Await the reply_text coroutine
     await update.message.reply_text(f"Searching for the reality of the news...")  # Await the reply_text coroutine
 
-    response = text_analysis(user_input_variable, api_key)  # Call the text_analysis function with the user's input
+    response = text_analysis(user_input_variable)  # Call the text_analysis function with the user's input
     await update.message.reply_text(response)  # Await the reply_text coroutine with the response
     
 
