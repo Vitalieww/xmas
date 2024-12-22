@@ -1,41 +1,74 @@
+<!-- Updated index.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bootstrap Search Page</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reality Checker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        
+        main {
+            text-align: center;
+        }
+        
+        .form-control {
+            width: 100%;
+            max-width: 900px;
+        }
+        
+        footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: #f8f9fa;
+        }
+    </style>
 </head>
+
 <body>
+    <main>
+        <header>
+            <h1>Reality Checker</h1>
+            <p>Look for biases and truthfulness in your articles.</p>
+        </header>
 
-<header style="height: 250px; background-color: #ffffff;">
-</header>
+        <div class="mt-4">
+            <form action="/search" method="GET" class="d-flex justify-content-center" role="search">
+                <input class="form-control" type="search" name="search" placeholder="Enter your text here" aria-label="Search">
+                <button class="btn btn-outline-dark ms-2" type="submit">
+                    <i class="fas fa-search"></i> Analyze
+                </button>
+            </form>
+        </div>
 
-<div class="container justify-content-center align-items-center vh-100 w-75">
-  <div class>
-    <h1 class="text-center">Reality Checker</h1>
-    <p class="text-center">Find out how real an article is.</p>
-    <div class="row justify-content-center">
-      <div class="col-md-12">
-        <form class="d-flex" action="/search" method="GET">
-          <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+        <div class="mt-4">
+            <a href="https://t.me/reality_checkerbot" class="btn btn-outline-dark me-2">
+                <i class="fab fa-telegram"></i> Add to Telegram
+            </a>
+            <a href="https://github.com/Vitalieww/xmas" class="btn btn-outline-dark">
+                <i class="fab fa-github"></i> View on GitHub
+            </a>
+        </div>
+    </main>
 
+    <footer class="text-center py-3">
+        &copy; 2024 Reality Checker. Team 06. All rights reserved.
+    </footer>
 
-  <!-- Footer -->
-  <footer class="bg-light text-center text-lg-start mt-5">
-    <div class="text-center p-3">
-      © 2024 Team 06. All rights reserved.
-    </div>
-  </footer>
-
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
